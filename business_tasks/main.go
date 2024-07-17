@@ -19,15 +19,18 @@ func main() {
 	for i, test := range tests {
 		start := time.Now()
 		tasks := test[0].([]string)
+		tasksCopy := make([]string, len(tasks))
+		copy(tasksCopy, tasks)
 		n := test[1].(int)
 		fmt.Println(fmt.Sprintf("Test %d, tasks: %v, n: %d", i, tasks, n))
-		fmt.Println(fmt.Sprintf("result: %s, execution time: %v", getTask(tasks, n, 0), time.Since(start)))
+		fmt.Println(fmt.Sprintf("recursive result: %s, execution time: %v", getTaskRecursive(tasks, n, 0), time.Since(start)))
+		fmt.Println(fmt.Sprintf("iterative result: %s, execution time: %v", getTaskIterative(tasksCopy, n), time.Since(start)))
 		fmt.Println("-----------------------------------------------------------")
 	}
 }
 
 // recursive implementation
-func getTask(tasks []string, n, startIndex int) string {
+func getTaskRecursive(tasks []string, n, startIndex int) string {
 	if len(tasks) == 0 {
 		return ""
 	}
@@ -54,5 +57,43 @@ func getTask(tasks []string, n, startIndex int) string {
 	// delete element
 	newSlice := slices.Delete(tasks, indexToDelete, indexToDelete+1)
 
-	return getTask(newSlice, n, startIndex)
+	return getTaskRecursive(newSlice, n, startIndex)
+}
+
+// iterative implementation
+func getTaskIterative(tasks []string, n int) string {
+	items := len(tasks)
+	startIndex := 0
+
+	if items == 0 {
+		return ""
+	}
+
+	if items == 1 {
+		return tasks[0]
+	}
+
+	for items > 1 {
+		// calculate index of the element to delete
+		indexToDelete := startIndex + n - 1
+		if len(tasks) < n+startIndex {
+			// out of bounds index
+			indexToDelete = indexToDelete - len(tasks)*(indexToDelete/len(tasks))
+		}
+
+		// set next start index
+		if indexToDelete == len(tasks)-1 {
+			// deleting last element, reset startIndex to 0
+			startIndex = 0
+		} else {
+			startIndex = indexToDelete
+		}
+
+		// delete element
+		tasks = slices.Delete(tasks, indexToDelete, indexToDelete+1)
+
+		items--
+	}
+
+	return tasks[0]
 }
