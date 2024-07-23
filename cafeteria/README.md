@@ -1,6 +1,7 @@
 https://community.topcoder.com/stat?c=problem_statement&pm=3080&rd=6518
 
 Problem Statement
+
 During the week, the cafeteria of my university is open until 2:30 PM. Normally, I will be at the university before this time anyway. Since I am a lazy person, I don't want to cook for myself and prefer eating in the cafeteria. But sometimes I don't have any classes in the morning, so I have to make sure to get to the university before the cafeteria closes.
 
 There are several bus stops within walking distance of my home and each one has a bus connection to the university. For each bus stop, there will be a bus driving to the university every ten minutes, so I just need to remember the number of minutes after a full hour when the first bus departs from each stop, how long it takes to get to the bus stop and how long the bus needs to drive to the university.
@@ -34,28 +35,36 @@ Examples
 {9}
 {1}
 {1}
+
 Returns: "02:28"
+
 There is only one bus stop. One bus departs at 2:29 and arrives at 2:30. Since the time to walk to the bus stop is 1 minute, the return value is 02:28.
 
 1)
 {6}
 {9}
 {120}
+
 Returns: "12:17"
+
 Leaving the house at 12:17 lets me catch the bus at 12:26 which arrives at 2:26 at the university. Note that the bus departing at 12:36 would arrive too late.
 
 2)
 {6,9}
 {9,10}
 {120,121}
+
 Returns: "12:19"
+
 Although the bus needs one minute more from the 2nd bus stop, and the walking time is also one minute longer, it is still better to leave the house at 12:19 and catch the bus at the 2nd bus stop at 12:29.
 
 3)
 {0,1,2,3,4,5,6,7,8,9}
 {11,11,11,11,11,11,11,11,11,11}
 {190,190,190,190,190,190,190,190,190,190}
+
 Returns: "11:09"
+
 This simulates a bus departing every minute.
 
 4)
@@ -66,4 +75,5 @@ This simulates a bus departing every minute.
 {151,264,280,89,63,57,15,120,28,296,76,269,90,106,31,222,
 291,52,102,73,140,248,44,187,76,49,296,106,54,119,54,283,263,
 285,275,127,108,82,84,241,169,203,244,256,109,288,9,262,103}
+
 Returns: "02:07"
